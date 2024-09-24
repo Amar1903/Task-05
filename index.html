@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form</title>
+    <style>
+        /* Set the background color and font family for the whole page */
+        body {
+            background: url(bg.jpg) no-repeat center center;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff; /* Adjust text color for better visibility */
+        }
+
+        /* Center the form and limit the width */
+        form {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(88, 161, 230, 0.897);
+            width: 400px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+        }
+
+        /* Style the h1 header */
+        h1 {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        /* Style the table and its contents */
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #abb7df;
+        }
+
+        /* Style the input fields */
+        input[type="text"], input[type="email"], input[type="password"], input[type="date"], textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #be7676;
+            font-size: 14px;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        /* Style the submit and reset buttons */
+        input[type="submit"], input[type="reset"], input[type="button"] {
+            background-color: #202122af;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>REGISTRATION FORM</h1>
+        <form id="personal-info-form" onsubmit="return validateForm()">
+            <table>
+                <tr>
+                    <td><label for="fname">First Name:</label></td>
+                    <td><input type="text" id="fname" placeholder="Enter your First Name" required></td>
+                </tr>
+                <tr>
+                    <td><label for="lname">Last Name:</label></td>
+                    <td><input type="text" id="lname" placeholder="Enter your Last Name" required></td>
+                </tr>
+                <tr>
+                    <td><label>Gender:</label></td>
+                    <td>
+                        <input type="radio" name="gender" id="Male" value="Male" required> Male
+                        <input type="radio" name="gender" id="FeMale" value="FeMale" required> Female
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="dob">Date of Birth:</label></td>
+                    <td><input type="date" id="dob" required></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input type="email" id="email" placeholder="Enter your Email" required></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password:</label></td>
+                    <td><input type="password" id="password" placeholder="Enter your Password" required></td>
+                </tr>
+                <tr>
+                    <td><label for="Address">Address:</label></td>
+                    <td><textarea id="Address" cols="20" rows="3" placeholder="Enter your Address" required></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="num">Mobile:</label></td>
+                    <td><input type="text" id="num" placeholder="Enter your Mobile Number" required></td>
+                </tr>
+            </table>
+
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset"><br><br>
+            <input type="button" value="Login" onclick="window.location.href='Index.html'">
+        </form>
+    </center>
+
+    <script>
+        function validateForm() {
+            const fname = document.getElementById("fname").value.trim();
+            const lname = document.getElementById("lname").value.trim();
+            const dob = document.getElementById("dob").value;
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const address = document.getElementById("Address").value.trim();
+            const mobile = document.getElementById("num").value.trim();
+            const gender = document.querySelector('input[name="gender"]:checked');
+
+            // Validate first name and last name
+            if (!/^[a-zA-Z\s]+$/.test(fname)) {
+                alert("First name must contain only letters and spaces.");
+                return false;
+            }
+
+            if (!/^[a-zA-Z\s]+$/.test(lname)) {
+                alert("Last name must contain only letters and spaces.");
+                return false;
+            }
+
+            // Validate date of birth (must be a past date)
+            const dobDate = new Date(dob);
+            const today = new Date();
+            if (dobDate >= today) {
+                alert("Date of birth must be a past date.");
+                return false;
+            }
+
+            // Validate email format
+            if (!/\S+@\S+\.\S+/.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            // Validate password length
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long.");
+                return false;
+            }
+
+            // Validate address
+            if (address.length < 10) {
+                alert("Address must be at least 10 characters long.");
+                return false;
+            }
+
+            // Validate mobile number (assuming 10 digits)
+            if (!/^\d{10}$/.test(mobile)) {
+                alert("Mobile number must be exactly 10 digits.");
+                return false;
+            }
+
+            // Validate gender selection
+            if (!gender) {
+                alert("Please select a gender.");
+                return false;
+            }
+
+            return true; // All validations passed
+        }
+    </script>
+</body>
+</html>
